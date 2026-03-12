@@ -4,7 +4,7 @@
 all: results/horse_pop_plot_largest_sd.png \
 	results/horse_pops_plot.png \
 	results/horses_spread.csv \
-	reports/qmd_example.html \
+	docs/index.html \
 	reports/qmd_example.pdf
 
 
@@ -24,6 +24,6 @@ reports/qmd_example.pdf: results reports/qmd_example.qmd
 # clean
 clean:
 	rm -rf results
-	rm -rf reports/qmd_example.html \
+	rm -rf docs \
 		reports/qmd_example.pdf \
 		reports/qmd_example_files
