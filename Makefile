@@ -1,10 +1,12 @@
 # author: Jordan Bourak & Tiffany Timbers
 # date: 2021-11-22
 
+.PHONY: docs
+
 all: results/horse_pop_plot_largest_sd.png \
 	results/horse_pops_plot.png \
 	results/horses_spread.csv \
-	docs/index.html \
+	docs \
 	reports/qmd_example.pdf
 
 
@@ -14,10 +16,13 @@ results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses
 	python source/generate_figures.py --input_dir="data/00030067-eng.csv" \
 		--out_dir="results"
 
-# render quarto report in HTML and PDF
-reports/qmd_example.html: results reports/qmd_example.qmd
-	quarto render reports/qmd_example.qmd --to html
+# render quarto report as HTML into docs/ for GitHub Pages
+docs: results reports/qmd_example.qmd
+	quarto render reports/qmd_example.qmd --to html \
+		--output-dir ../../docs
+	mv docs/qmd_example.html docs/index.html
 
+# render quarto report as PDF
 reports/qmd_example.pdf: results reports/qmd_example.qmd
 	quarto render reports/qmd_example.qmd --to pdf
 
