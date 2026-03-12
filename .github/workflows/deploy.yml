@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install pandas altair click tabulate vl-convert-python
+          pip install pandas altair click tabulate vl-convert-python jupyter pyyaml
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
