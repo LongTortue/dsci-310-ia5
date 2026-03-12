@@ -5,25 +5,25 @@
 
 all: results/horse_pop_plot_largest_sd.png \
 	results/horse_pops_plot.png \
-	results/horses_spread.csv \
+	results/horses_sd.csv \
 	docs \
 	reports/qmd_example.pdf
 
 
 
 # generate figures and objects for report
-results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_spread.csv: source/generate_figures.py
+results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_sd.csv: source/generate_figures.py
 	python source/generate_figures.py --input_dir="data/00030067-eng.csv" \
 		--out_dir="results"
 
 # render quarto report as HTML into docs/ for GitHub Pages
-docs: results reports/qmd_example.qmd
+docs: results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_sd.csv reports/qmd_example.qmd
 	quarto render reports/qmd_example.qmd --to html \
 		--output-dir ../../docs
 	mv docs/qmd_example.html docs/index.html
 
 # render quarto report as PDF
-reports/qmd_example.pdf: results reports/qmd_example.qmd
+reports/qmd_example.pdf: results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_sd.csv reports/qmd_example.qmd
 	quarto render reports/qmd_example.qmd --to pdf
 
 # clean
