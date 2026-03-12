@@ -18,8 +18,10 @@ results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses
 
 # render quarto report as HTML into docs/ for GitHub Pages
 docs: results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_sd.csv reports/qmd_example.qmd
-	quarto render reports/qmd_example.qmd --to html \
-		--output-dir ../../docs --output index.html
+	quarto render reports/qmd_example.qmd --to html
+	mkdir -p docs
+	cp reports/qmd_example.html docs/index.html
+	cp -r reports/qmd_example_files docs/
 
 # render quarto report as PDF
 reports/qmd_example.pdf: results/horse_pop_plot_largest_sd.png results/horse_pops_plot.png results/horses_sd.csv reports/qmd_example.qmd
@@ -29,5 +31,6 @@ reports/qmd_example.pdf: results/horse_pop_plot_largest_sd.png results/horse_pop
 clean:
 	rm -rf results
 	rm -rf docs \
-		reports/qmd_example.pdf \
-		reports/qmd_example_files
+		reports/qmd_example.html \
+		reports/qmd_example_files \
+		reports/qmd_example.pdf
